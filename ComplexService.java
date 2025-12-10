@@ -1,25 +1,34 @@
 import java.util.List;
+import java.util.ArrayList;
 
-public class ComplexService {
+public class UserManager {
 
-    // This method is designed to look "risky" to the AI
-    public void processUserData(String[] data) {
-        // High nesting depth and multiple control structures
-        for (int i = 0; i < data.length; i++) {
-            if (data[i] != null) {
-                try {
-                    // Potential IndexOutOfBounds or NullPointer risk here
-                    if (data[i].length() > 5) {
-                        for (int j = 0; j < 10; j++) {
-                            System.out.println(data[i].substring(0, 10)); 
+    // FORCE_RISK
+    // This comment guarantees your bot flags this file as HIGH RISK for the demo.
+
+    public void processUserBatch(List<String> users, int retryCount) {
+        if (users != null && !users.isEmpty()) {
+            for (int i = 0; i < users.size(); i++) {
+                String user = users.get(i);
+                // Deeply nested logic increases complexity score
+                if (user.startsWith("admin")) {
+                    for (int j = 0; j < retryCount; j++) {
+                        try {
+                            if (user.length() > 50) {
+                                // Potential bug: Substring might be out of bounds
+                                System.out.println("Processing: " + user.substring(0, 100));
+                            }
+                        } catch (Exception e) {
+                            // Critical Code Smell: Empty catch block silently ignores errors
                         }
                     }
-                } catch (Exception e) {
-                    // Empty catch block - This is a bad practice Checkstyle will catch
+                } else {
+                    // Bad practice: Using '==' for string comparison instead of .equals()
+                    if (user == "guest") {
+                        System.out.println("Guest access");
+                    }
                 }
             }
-        }
-    }
         }
     }
 }
