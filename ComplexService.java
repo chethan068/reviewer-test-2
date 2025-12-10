@@ -3,20 +3,23 @@ import java.util.List;
 public class ComplexService {
 
     // This method is designed to look "risky" to the AI
-    public void processData(List<String> inputs) {
-        // High cyclomatic complexity (nested loops and ifs)
-        for (int i = 0; i < inputs.size(); i++) {
-            if (inputs.get(i) != null) {
-                for (int j = 0; j < 10; j++) {
-                    if (j > 5) {
-                        try {
-                            System.out.println(inputs.get(i).substring(0, 5));
-                        } catch (Exception e) {
-                            // Empty catch block - Checkstyle will hate this
+    public void processUserData(String[] data) {
+        // High nesting depth and multiple control structures
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] != null) {
+                try {
+                    // Potential IndexOutOfBounds or NullPointer risk here
+                    if (data[i].length() > 5) {
+                        for (int j = 0; j < 10; j++) {
+                            System.out.println(data[i].substring(0, 10)); 
                         }
                     }
+                } catch (Exception e) {
+                    // Empty catch block - This is a bad practice Checkstyle will catch
                 }
             }
+        }
+    }
         }
     }
 }
